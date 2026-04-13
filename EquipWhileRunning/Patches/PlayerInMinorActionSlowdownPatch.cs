@@ -1,0 +1,25 @@
+﻿using HarmonyLib;
+
+namespace EquipWhileRunning.Patches
+{
+    [HarmonyPatch(typeof(Player), nameof(Player.InMinorActionSlowdown))]
+    public class PlayerInMinorActionSlowdownPatch
+    {
+        [HarmonyPrefix]
+        private static bool PreventMinorActionSlowdownWhenRunning(Player __instance, ref bool __result)
+        {
+            if (EquipWhileRunningPlugin.Instance == null || !EquipWhileRunningPlugin.Instance.IsModEnabled || __instance != Player.m_localPlayer)
+            {
+                return true;
+            }
+
+            if (!__instance.IsRunning())
+            {
+                return true;
+            }
+
+            __result = false;
+            return false;
+        }
+    }
+}

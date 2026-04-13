@@ -1,0 +1,9 @@
+{
+  "name": "EquipWhileRunning",
+  "version_number": "__VERSION__",
+  "website_url": "",
+  "description": "Allows equip and unequip actions while running in Valheim.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2333"
+  ]
+}
