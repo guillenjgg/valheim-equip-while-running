@@ -13,11 +13,12 @@ namespace EquipWhileRunning
         const string pluginGUID = "hex.EquipWhileRunning";
         const string pluginName = "Equip While Running";
         const string pluginVersion = "1.0.0";
+        const float messageCooldown = 0.2f;
         const KeyCode defaultKeyCode = KeyCode.F7;
 
         private Harmony _harmony;
         private ConfigEntry<bool> _modEnabled;
-        private ConfigEntry<KeyCode> _toggleKey;
+        private ConfigEntry<KeyboardShortcut> _toggleKey;
         private float _lastMessageTime;
 
         public static EquipWhileRunningPlugin Instance { get; private set; }
@@ -30,7 +31,7 @@ namespace EquipWhileRunning
             Instance = this;
 
             _modEnabled = Config.Bind("General", "Enabled", true, "Allow equip and unequip actions while running");
-            _toggleKey = Config.Bind("General", "ToggleKey", defaultKeyCode, "Hotkey to toggle equip while running");
+            _toggleKey = Config.Bind("Key Binds", "ToggleKey", new KeyboardShortcut(defaultKeyCode), "Hotkey to toggle equip while running");
 
             _toggleKey.SettingChanged += OnToggleKeyChanged;
 
@@ -47,11 +48,14 @@ namespace EquipWhileRunning
                 return;
             }
 
-            if (UnityEngine.Input.GetKeyDown(_toggleKey.Value))
+            if (_toggleKey.Value.IsDown())
             {
                 _modEnabled.Value = !_modEnabled.Value;
 
-                ShowStatus(_modEnabled.Value);
+                if (MessageHud.instance != null)
+                {
+                    ShowStatus(_modEnabled.Value);
+                }
             }
         }
 
@@ -61,6 +65,8 @@ namespace EquipWhileRunning
             {
                 _toggleKey.SettingChanged -= OnToggleKeyChanged;
             }
+
+            Instance = null;
 
             _harmony?.UnpatchSelf();
         }
@@ -72,7 +78,7 @@ namespace EquipWhileRunning
 
         private void ShowStatus(bool isEnabled)
         {
-            if(Time.time - _lastMessageTime < 0.2f)
+            if(Time.time - _lastMessageTime < messageCooldown)
             {
                 return;
             }
@@ -85,10 +91,7 @@ namespace EquipWhileRunning
 
             Logger.LogInfo(message);
 
-            if (MessageHud.instance != null)
-            {
-                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, message);
-            }
+            MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, message);
         }
     }
 }

@@ -5,16 +5,20 @@ using System.Reflection;
 namespace EquipWhileRunning.Patches
 {
     [HarmonyPatch(typeof(Player), nameof(Player.CheckRun))]
-    public class PlayerCheckRunPatch
+    public static class PlayerCheckRunPatch
     {
-        private static readonly FieldInfo ActionQueueField = AccessTools.Field(typeof(Player), "m_actionQueue");
-        private static readonly FieldInfo ActionTypeField = AccessTools.Field(typeof(Player.MinorActionData), "m_type");
+        private static readonly FieldInfo ActionQueueField =
+            AccessTools.Field(typeof(Player), "m_actionQueue");
 
-        private static readonly HashSet<Player.MinorActionData.ActionType> _allowedActionTypes = new HashSet<Player.MinorActionData.ActionType>
-        {
-            Player.MinorActionData.ActionType.Equip,
-            Player.MinorActionData.ActionType.Unequip
-        };
+        private static readonly FieldInfo ActionTypeField =
+            AccessTools.Field(typeof(Player.MinorActionData), "m_type");
+
+        private static readonly HashSet<Player.MinorActionData.ActionType> AllowedActionTypes =
+            new HashSet<Player.MinorActionData.ActionType>
+            {
+                Player.MinorActionData.ActionType.Equip,
+                Player.MinorActionData.ActionType.Unequip
+            };
 
         [HarmonyPrefix]
         private static void SaveAllowedActionsBeforeCheckRun(Player __instance, ref List<Player.MinorActionData> __state)
@@ -31,19 +35,19 @@ namespace EquipWhileRunning.Patches
                 return;
             }
 
-            var queue = ActionQueueField?.GetValue(__instance) as List<Player.MinorActionData>;
+            if (ActionQueueField == null || ActionTypeField == null)
+            {
+                return;
+            }
 
+            var queue = ActionQueueField.GetValue(__instance) as List<Player.MinorActionData>;
+            
             if (queue == null || queue.Count == 0)
             {
                 return;
             }
 
-            if (ActionTypeField == null)
-            {
-                return;
-            }
-
-            __state = new List<Player.MinorActionData>();
+            var savedActions = new List<Player.MinorActionData>();
 
             foreach (var action in queue)
             {
@@ -54,21 +58,21 @@ namespace EquipWhileRunning.Patches
 
                 var actionType = (Player.MinorActionData.ActionType)ActionTypeField.GetValue(action);
 
-                if (_allowedActionTypes.Contains(actionType))
+                if (AllowedActionTypes.Contains(actionType))
                 {
-                    __state.Add(action);
+                    savedActions.Add(action);
                 }
+            }
+
+            if (savedActions.Count > 0)
+            {
+                __state = savedActions;
             }
         }
 
         [HarmonyPostfix]
-        private static void RestoreAllowedActionsAfterCheckRun(Player __instance, List<Player.MinorActionData> __state, bool __result)
+        private static void RestoreAllowedActionsAfterCheckRun(Player __instance, List<Player.MinorActionData> __state)
         {
-            if (!__result)
-            {
-                return;
-            }
-
             if (EquipWhileRunningPlugin.Instance == null || !EquipWhileRunningPlugin.Instance.IsModEnabled)
             {
                 return;
@@ -89,18 +93,26 @@ namespace EquipWhileRunning.Patches
                 return;
             }
 
-            var queue = ActionQueueField?.GetValue(__instance) as List<Player.MinorActionData>;
-
+            var queue = ActionQueueField.GetValue(__instance) as List<Player.MinorActionData>;
+            
             if (queue == null)
             {
                 return;
             }
 
+            var queueSet = new HashSet<Player.MinorActionData>(queue);
+
             foreach (var savedAction in __state)
             {
-                if (!queue.Contains(savedAction))
+                if (savedAction == null)
+                {
+                    continue;
+                }
+
+                if (!queueSet.Contains(savedAction))
                 {
                     queue.Add(savedAction);
+                    queueSet.Add(savedAction);
                 }
             }
         }
