@@ -108,7 +108,7 @@ namespace EquipWhileRunning.Patches
                 {
                     continue;
                 }
-
+                //test
                 if (!queueSet.Contains(savedAction))
                 {
                     queue.Add(savedAction);
