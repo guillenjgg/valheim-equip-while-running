@@ -3,7 +3,7 @@
 namespace EquipWhileRunning.Patches
 {
     [HarmonyPatch(typeof(Player), nameof(Player.InMinorActionSlowdown))]
-    public class PlayerInMinorActionSlowdownPatch
+    public static class PlayerInMinorActionSlowdownPatch
     {
         [HarmonyPrefix]
         private static bool PreventMinorActionSlowdownWhenRunning(Player __instance, ref bool __result)

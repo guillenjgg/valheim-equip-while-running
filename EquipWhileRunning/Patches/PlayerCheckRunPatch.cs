@@ -7,11 +7,9 @@ namespace EquipWhileRunning.Patches
     [HarmonyPatch(typeof(Player), nameof(Player.CheckRun))]
     public static class PlayerCheckRunPatch
     {
-        private static readonly FieldInfo ActionQueueField =
-            AccessTools.Field(typeof(Player), "m_actionQueue");
+        private static readonly FieldInfo ActionQueueField = AccessTools.Field(typeof(Player), "m_actionQueue");
 
-        private static readonly FieldInfo ActionTypeField =
-            AccessTools.Field(typeof(Player.MinorActionData), "m_type");
+        private static readonly FieldInfo ActionTypeField = AccessTools.Field(typeof(Player.MinorActionData), "m_type");
 
         private static readonly HashSet<Player.MinorActionData.ActionType> AllowedActionTypes =
             new HashSet<Player.MinorActionData.ActionType>
@@ -108,7 +106,7 @@ namespace EquipWhileRunning.Patches
                 {
                     continue;
                 }
-                //test
+                
                 if (!queueSet.Contains(savedAction))
                 {
                     queue.Add(savedAction);
