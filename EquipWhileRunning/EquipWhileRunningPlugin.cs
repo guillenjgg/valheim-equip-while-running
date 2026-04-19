@@ -7,7 +7,6 @@ using UnityEngine;
 namespace EquipWhileRunning
 {
     [BepInPlugin(pluginGUID, pluginName, pluginVersion)]
-    [BepInProcess("valheim.exe")]
     public class EquipWhileRunningPlugin : BaseUnityPlugin
     {
         const string pluginGUID = "hex.EquipWhileRunning";
