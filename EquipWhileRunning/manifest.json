@@ -1,5 +1,5 @@
 {
-  "name": "EquipWhileRunning",
+  "name": "Equip While Running",
   "version_number": "__VERSION__",
   "website_url": "",
   "description": "Allows equip and unequip actions while running in Valheim.",
