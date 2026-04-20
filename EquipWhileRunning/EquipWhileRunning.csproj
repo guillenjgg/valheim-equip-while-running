@@ -45,11 +45,9 @@
     </Reference>
     <Reference Include="assembly_utils_publicized">
       <HintPath>..\..\..\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="assembly_valheim_publicized">
       <HintPath>..\..\..\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\..\..\bepinex_mod_libs\BepInEx.dll</HintPath>
