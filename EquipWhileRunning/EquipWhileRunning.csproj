@@ -45,11 +45,9 @@
     </Reference>
     <Reference Include="assembly_utils_publicized">
       <HintPath>..\..\..\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
-      <Private>False</Private>
     </Reference>
-    <Reference Include="assembly_valheim_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ValheimPublicized.1.0.0\lib\net48\assembly_valheim_publicized.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="assembly_valheim_publicized">
+      <HintPath>..\..\..\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\..\..\bepinex_mod_libs\BepInEx.dll</HintPath>
@@ -86,7 +84,6 @@
     <None Include="manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
     <None Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
