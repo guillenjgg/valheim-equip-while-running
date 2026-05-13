@@ -23,8 +23,8 @@ namespace EquipWhileRunning.Patches
                 return true;
             }
 
-            __result = false; // Provide a return value without running the original method
-            return false;     // Skip executing InMinorActionSlowdown
+            __result = false;
+            return false;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace EquipWhileRunning
     {
         const string pluginGUID = "hex.EquipWhileRunning";
         const string pluginName = "Equip While Running";
-        const string pluginVersion = "1.0.0";
+        const string pluginVersion = "1.1.0";
         const float messageCooldown = 0.2f;
         const KeyCode defaultKeyCode = KeyCode.F7;
 
@@ -65,9 +65,11 @@ namespace EquipWhileRunning
                 _toggleKey.SettingChanged -= OnToggleKeyChanged;
             }
 
-            Instance = null;
+            Logger.LogInfo($"{pluginName} {pluginVersion} unloaded.");
 
             _harmony?.UnpatchSelf();
+            _harmony = null;
+            Instance = null;
         }
 
         private void OnToggleKeyChanged(object sender, EventArgs e)

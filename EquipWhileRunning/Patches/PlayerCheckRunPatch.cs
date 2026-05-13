@@ -15,7 +15,8 @@ namespace EquipWhileRunning.Patches
             new HashSet<Player.MinorActionData.ActionType>
             {
                 Player.MinorActionData.ActionType.Equip,
-                Player.MinorActionData.ActionType.Unequip
+                Player.MinorActionData.ActionType.Unequip,
+                Player.MinorActionData.ActionType.Reload
             };
 
         [HarmonyPrefix]
@@ -54,12 +55,12 @@ namespace EquipWhileRunning.Patches
                     continue;
                 }
 
-                var actionType = (Player.MinorActionData.ActionType)ActionTypeField.GetValue(action);
+                savedActions.Add(action);
+                //var actionType = (Player.MinorActionData.ActionType)ActionTypeField.GetValue(action);
 
-                if (AllowedActionTypes.Contains(actionType))
-                {
-                    savedActions.Add(action);
-                }
+                //if (AllowedActionTypes.Contains(actionType))
+                //{
+                //}
             }
 
             if (savedActions.Count > 0)
