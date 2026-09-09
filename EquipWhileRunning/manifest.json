@@ -1,6 +1,6 @@
 {
   "name": "HexEquipWhileRunning",
-  "version_number": "1.1.0",
+  "version_number": "1.1.1",
   "website_url": "https://github.com/guillenjgg/valheim-equip-while-running",
   "description": "Allows equip, unequip, and reload actions while running.",
   "dependencies": [

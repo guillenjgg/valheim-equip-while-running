@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using HarmonyLib;
 using System;
+using System.Reflection;
 using UnityEngine;
 
 namespace EquipWhileRunning
@@ -11,7 +12,7 @@ namespace EquipWhileRunning
     {
         const string pluginGUID = "hex.EquipWhileRunning";
         const string pluginName = "Equip While Running";
-        const string pluginVersion = "1.1.0";
+        const string pluginVersion = "1.1.1";
         const float messageCooldown = 0.2f;
         const KeyCode defaultKeyCode = KeyCode.F7;
 
@@ -34,8 +35,9 @@ namespace EquipWhileRunning
 
             _toggleKey.SettingChanged += OnToggleKeyChanged;
 
+            Assembly assembly = Assembly.GetExecutingAssembly();
             _harmony = new Harmony(pluginGUID);
-            _harmony.PatchAll();
+            _harmony.PatchAll(assembly);
 
             Logger.LogInfo($"{pluginName} {pluginVersion} loaded.");
         }
