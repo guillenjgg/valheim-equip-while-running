@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
-using System;
 using System.Reflection;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace EquipWhileRunning
     {
         const string pluginGUID = "hex.EquipWhileRunning";
         const string pluginName = "Equip While Running";
-        const string pluginVersion = "1.1.1";
+        const string pluginVersion = "1.1.2";
         const float messageCooldown = 0.2f;
         const KeyCode defaultKeyCode = KeyCode.F7;
 
@@ -32,8 +31,6 @@ namespace EquipWhileRunning
 
             _modEnabled = Config.Bind("General", "Enabled", true, "Allow equip and unequip actions while running");
             _toggleKey = Config.Bind("Key Binds", "ToggleKey", new KeyboardShortcut(defaultKeyCode), "Hotkey to toggle equip while running");
-
-            _toggleKey.SettingChanged += OnToggleKeyChanged;
 
             Assembly assembly = Assembly.GetExecutingAssembly();
             _harmony = new Harmony(pluginGUID);
@@ -62,21 +59,11 @@ namespace EquipWhileRunning
 
         private void OnDestroy()
         {
-            if(_toggleKey != null)
-            {
-                _toggleKey.SettingChanged -= OnToggleKeyChanged;
-            }
-
             Logger.LogInfo($"{pluginName} {pluginVersion} unloaded.");
 
             _harmony?.UnpatchSelf();
             _harmony = null;
             Instance = null;
-        }
-
-        private void OnToggleKeyChanged(object sender, EventArgs e)
-        {
-            Logger.LogInfo($"Toggle key changed to {_toggleKey.Value}");
         }
 
         private void ShowStatus(bool isEnabled)

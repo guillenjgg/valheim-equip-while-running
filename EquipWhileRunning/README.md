@@ -4,12 +4,8 @@ Allows equip, unequip and reload actions while running in Valheim.
 
 ## Features
 
-- Equip, unequip and reload actions while sprinting
 - Toggle the mod on/off in game
 - Configurable hotkey
-- Client-side behavior for the local player
-- Lightweight Harmony patching with vanilla-friendly behavior
-- Vanilla-friendly gameplay integration
 
 ---
 
@@ -59,7 +55,7 @@ ToggleKey = F7
 
 ### Thunderstore / r2modman
 
-Install using a Thunderstore-compatible mod manager such as r2modman.
+Install using a Thunderstore-compatible mod manager such as r2modman or Gale.
 
 ### Manual Installation
 
@@ -85,14 +81,14 @@ Server installation is typically not required.
 
 ---
 
-## Compatibility
-
-- Designed to be lightweight and compatible with other mods
-- Uses non-destructive Harmony patching
-- Intended to work safely in multiplayer environments
-
----
-
 ## Known Issues
 
 - Other mods that heavily modify player movement or action queue behavior may cause conflicts
+
+---
+
+## Support and Feedback
+- https://discord.gg/wU2FXD94v4
+
+## Source Code
+- https://github.com/guillenjgg/valheim-equip-while-running
