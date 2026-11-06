@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.1.3
+
+### Added
+- Option to instantly reload the grappling hook on equip. Has a configurable cooldown. Default is `2` seconds.
+
+### Changed
+- Compiled against Valheim v1.0.21
+- Updated BepInEx dependency to `denikson-BepInExPack_Valheim-5.4.2360`
+
 ## v1.1.2
 
 ### Changed
