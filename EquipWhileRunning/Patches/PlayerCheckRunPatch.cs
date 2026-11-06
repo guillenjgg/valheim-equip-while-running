@@ -14,7 +14,7 @@ namespace EquipWhileRunning.Patches
         {
             __state = null;
 
-            if (EquipWhileRunningPlugin.Instance == null || !EquipWhileRunningPlugin.Instance.IsModEnabled)
+            if (Plugin.Instance == null || !Plugin.Instance.IsModEnabled.Value)
             {
                 return;
             }
@@ -37,7 +37,7 @@ namespace EquipWhileRunning.Patches
         [HarmonyPostfix]
         private static void RestoreActionsAfterCheckRun(Player __instance, List<Player.MinorActionData> __state)
         {
-            if (EquipWhileRunningPlugin.Instance == null || !EquipWhileRunningPlugin.Instance.IsModEnabled)
+            if (Plugin.Instance == null || !Plugin.Instance.IsModEnabled.Value)
             {
                 return;
             }

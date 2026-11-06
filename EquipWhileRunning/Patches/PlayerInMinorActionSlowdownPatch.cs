@@ -8,7 +8,7 @@ namespace EquipWhileRunning.Patches
         [HarmonyPrefix]
         private static bool PreventMinorActionSlowdownWhenRunning(Player __instance, ref bool __result)
         {
-            if (EquipWhileRunningPlugin.Instance == null || !EquipWhileRunningPlugin.Instance.IsModEnabled)
+            if (Plugin.Instance == null || !Plugin.Instance.IsModEnabled.Value)
             {
                 return true;
             }

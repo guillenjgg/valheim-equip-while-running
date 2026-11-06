@@ -18,7 +18,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\debug_builds\EquipWhileRunning\</OutputPath>
+    <OutputPath>..\..\..\..\..\AppData\Roaming\com.kesomannen.gale\valheim\profiles\Dev\BepInEx\plugins\HexEquipWhileRunning\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -44,7 +44,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="assembly_valheim_publicized">
-      <HintPath>..\..\..\publicized_assemblies\v1.0.20\assembly_valheim_publicized.dll</HintPath>
+      <HintPath>..\..\..\publicized_assemblies\v1.0.21\assembly_valheim_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BepInEx">
@@ -73,7 +73,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EquipWhileRunningPlugin.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Patches\HumanoidEquipItemPatch.cs" />
+    <Compile Include="Patches\GrapplingPointBreakPatch.cs" />
+    <Compile Include="Patches\AttackOnAttackTriggerPatch.cs" />
     <Compile Include="Patches\PlayerCheckRunPatch.cs" />
     <Compile Include="Patches\PlayerInMinorActionSlowdownPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
